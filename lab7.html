@@ -23,34 +23,70 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
-  // Initialize the map and set its view to your chosen location and zoom level
-setView([39.7392, -104.9903], 12); // Denver, CO
+  // Initialize the map
+  var map = L.map('map').setView([39.7392, -104.9903], 13);
 
-  // Add the OpenStreetMap tile layer
+  // Add OpenStreetMap tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
-  // Add a marker
-var marker = L.marker([39.7392, -104.9903]).addTo(map);
-marker.bindPopup("<b>Denver City Center</b><br>This is where the fun begins!");
+  // Marker
+  var marker = L.marker([39.7392, -104.9903]).addTo(map);
+  marker.bindPopup("<b>Denver City Center</b><br>This is where the fun begins!");
 
-  // Add a circle
-var circle = L.circle([39.735, -104.985], {
-  color: 'green',
-  fillColor: '#3f3',
-  fillOpacity: 0.4,
-  radius: 600
-}).addTo(map);
-circle.bindPopup("This circle shows a cool neighborhood.");
+  // Circle
+  var circle = L.circle([39.735, -104.985], {
+    color: 'green',
+    fillColor: '#3f3',
+    fillOpacity: 0.4,
+    radius: 600
+  }).addTo(map);
+  circle.bindPopup("This circle shows a cool neighborhood.");
 
-  // Add a polygon
- var polygon = L.polygon([
-  [39.742, -104.99],
-  [39.747, -104.985],
-  [39.745, -104.975]
-]).addTo(map);
-polygon.bindPopup("Polygon zone in Denver.");
+  // Polygon
+  var polygon = L.polygon([
+    [39.742, -104.99],
+    [39.747, -104.985],
+    [39.745, -104.975]
+  ]).addTo(map);
+  polygon.bindPopup("Polygon zone in Denver.");
+
+  // ✅ Polyline (connecting three points)
+  var latlngs = [
+    [39.7392, -104.9903],
+    [39.7422, -104.9825],
+    [39.7452, -104.9700]
+  ];
+
+  var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+  polyline.bindPopup("This is a polyline connecting 3 locations.");
+
+  // ✅ Custom Icon Marker
+  var myIcon = L.icon({
+    iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
+    iconSize:     [38, 95],
+    iconAnchor:   [22, 94],
+    popupAnchor:  [-3, -76]
+  });
+
+  L.marker([39.7405, -104.98], {icon: myIcon}).addTo(map)
+    .bindPopup("This marker uses a custom red icon!");
+
+  // ✅ Multi-Polygon
+  var multiPolygon = L.polygon([
+    [
+      [39.737, -104.985],
+      [39.738, -104.975],
+      [39.733, -104.973]
+    ],
+    [
+      [39.749, -104.98],
+      [39.750, -104.970],
+      [39.748, -104.965]
+    ]
+  ]).addTo(map);
+  multiPolygon.bindPopup("This is a multi-polygon.");
 </script>
 
 </body>
