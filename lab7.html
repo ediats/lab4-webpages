@@ -41,6 +41,23 @@
     L.marker([39.7392, -104.9903]).addTo(map)
       .bindPopup("Welcome to Denver!")
       .openPopup();
+    // ✅ Add a Circle
+var circle = L.circle([39.735, -104.985], {
+  color: 'blue',
+  fillColor: '#30f',
+  fillOpacity: 0.5,
+  radius: 500
+}).addTo(map);
+circle.bindPopup("This is a circle near Denver center.");
+
+// ✅ Add a Polygon
+var polygon = L.polygon([
+  [39.742, -104.99],
+  [39.747, -104.985],
+  [39.745, -104.975]
+]).addTo(map);
+polygon.bindPopup("This is a custom polygon area.");
+
   </script>
 
 </body>
