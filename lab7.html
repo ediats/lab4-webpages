@@ -57,7 +57,15 @@ var polygon = L.polygon([
   [39.745, -104.975]
 ]).addTo(map);
 polygon.bindPopup("This is a custom polygon area.");
+    // ✅ Add a Polyline (connecting 3 locations)
+var latlngs = [
+  [39.7392, -104.9903],  // Point 1
+  [39.7422, -104.9825],  // Point 2
+  [39.7452, -104.9700]   // Point 3
+];
 
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+polyline.bindPopup("This is a polyline connecting 3 locations.");
   </script>
 
 </body>
