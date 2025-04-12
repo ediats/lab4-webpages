@@ -24,7 +24,7 @@
 
   <script>
   // Initialize the map and set its view to your chosen location and zoom level
-  var map = L.map('map').setView([39.8028, -104.9006], 13); // Example: somewhere in Northglenn, CO
+setView([39.7392, -104.9903], 12); // Denver, CO
 
   // Add the OpenStreetMap tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,25 +32,25 @@
   }).addTo(map);
 
   // Add a marker
-  var marker = L.marker([39.8028, -104.9006]).addTo(map);
-  marker.bindPopup("<b>Hello!</b><br>This is a marker in Northglenn.").openPopup();
+var marker = L.marker([39.7392, -104.9903]).addTo(map);
+marker.bindPopup("<b>Denver City Center</b><br>This is where the fun begins!");
 
   // Add a circle
-  var circle = L.circle([39.805, -104.895], {
-    color: 'blue',
-    fillColor: '#30f',
-    fillOpacity: 0.5,
-    radius: 500
-  }).addTo(map);
-  circle.bindPopup("This is a circle.");
+var circle = L.circle([39.735, -104.985], {
+  color: 'green',
+  fillColor: '#3f3',
+  fillOpacity: 0.4,
+  radius: 600
+}).addTo(map);
+circle.bindPopup("This circle shows a cool neighborhood.");
 
   // Add a polygon
-  var polygon = L.polygon([
-    [39.803, -104.903],
-    [39.806, -104.907],
-    [39.808, -104.900]
-  ]).addTo(map);
-  polygon.bindPopup("This is a polygon.");
+ var polygon = L.polygon([
+  [39.742, -104.99],
+  [39.747, -104.985],
+  [39.745, -104.975]
+]).addTo(map);
+polygon.bindPopup("Polygon zone in Denver.");
 </script>
 
 </body>
