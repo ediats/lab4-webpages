@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ✅ Leaflet CSS -->
- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  #map {
-    height: 600px;
-    width: 100%;
-  }
-</style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,53 +26,22 @@
   <div id="map"></div>
 
   <!-- ✅ Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
-    // Initialize the map
+    // ✅ Initialize the map
     var map = L.map('map').setView([39.7392, -104.9903], 13);
 
-    // Add OpenStreetMap tile layer
+    // ✅ Add a tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Marker
-    var marker = L.marker([39.7392, -104.9903]).addTo(map);
-    marker.bindPopup("<b>Denver City Center</b><br>This is where the fun begins!");
+    // ✅ Add a marker
+    L.marker([39.7392, -104.9903]).addTo(map)
+      .bindPopup("Welcome to Denver!")
+      .openPopup();
+  </script>
 
-    // Circle
-    var circle = L.circle([39.735, -104.985], {
-      color: 'green',
-      fillColor: '#3f3',
-      fillOpacity: 0.4,
-      radius: 600
-    }).addTo(map);
-    circle.bindPopup("This circle shows a cool neighborhood.");
-
-    // Polygon
-    var polygon = L.polygon([
-      [39.742, -104.99],
-      [39.747, -104.985],
-      [39.745, -104.975]
-    ]).addTo(map);
-    polygon.bindPopup("Polygon zone in Denver.");
-
-    // Polyline
-    var latlngs = [
-      [39.7392, -104.9903],
-      [39.7422, -104.9825],
-      [39.7452, -104.9700]
-    ];
-    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-    polyline.bindPopup("This is a polyline connecting 3 locations.");
-
-    // Custom Marker Icon
-    var myIcon = L.icon({
-      iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
-      iconSize:     [38, 95],
-      iconAnchor:   [22, 94],
-      popupAnchor:  [-3, -76]
-    });
-
-    L.marker([39.7405, -104.98],
+</body>
+</html>
