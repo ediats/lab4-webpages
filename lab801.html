@@ -73,7 +73,18 @@
 		var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
 		
-		// let's add the Denver ACS data -- ##4 here
+		// let's add the Denver ACS data -- ##4 
+		fetch('acs_denver_2021.geojson')
+    .then(response => response.json())
+    .then(data => {
+        var geojsonLayer = L.geoJSON(data, {
+            style: {
+                color: "purple",
+                weight: 2,
+                fillOpacity: 0.3
+            }
+        }).addTo(map);
+    });
 		
 
 		// let's try to add some remote DRCOG data
