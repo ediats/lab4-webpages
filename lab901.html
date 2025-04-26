@@ -72,19 +72,43 @@
 		// the control let's the user turn on / off layers -- ##3 
 		var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
-		
+		// define a function to style my choropleth map
+function style1(feature) {
+    d = feature.properties.PCT_POVERTY;
+    answer = d > 30 ? '#800026' :
+             d > 20 ? '#DB0026' :
+             d > 15 ? '#E31A1C' :
+             d > 10 ? '#FC4E2A' :
+             d > 5  ? '#FD8D3C' :
+             d > 3  ? '#FEB24C' :
+             d > 1  ? '#FED976' :
+                      '#FFEDA0';
+    styleReturn = {
+        fillColor: answer,
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+    return styleReturn;
+}
+
 		// let's add the Denver ACS data -- ##4 
 		fetch('acs_denver_2021.geojson')
     .then(response => response.json())
     .then(data => {
-        var geojsonLayer = L.geoJSON(data, {
-            style: {
-                color: "purple",
-                weight: 2,
-                fillOpacity: 0.3
-            }
-        }).addTo(map);
+      var geojsonLayer = L.geoJSON(data, {
+    style: style1,
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup("Percent Poverty: " + feature.properties.PCT_POVERTY + "%");
+    }
+}).addTo(map);
+
+        map.panTo(geojsonLayer.getBounds().getCenter());
+        layerControl.addOverlay(geojsonLayer, "Census 2021");
     });
+
 		
 
 		// let's try to add some remote DRCOG data
