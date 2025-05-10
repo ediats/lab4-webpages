@@ -1,150 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<base target="_top">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 	<title>Lab 8 - Denver Neighborhood Data</title>
-	
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		
-		#map { width:100%; height: 70%; }
-		
-		h1 { color: #3293a8;
-		     font-family: "Garamond", serif;
-		     font-size: 20px;
-		    }
-		
-		p { font: serif 10px;
-		    color: #3293a8;
-		  }
-		
-		#header {
-			width: 100%;
-			margin: auto;
-			align: center;
-		}
-		
+		html, body { height: 100%; margin: 0; }
+		#map { width: 100%; height: 70%; }
+		h1 { color: #3293a8; font-family: "Garamond", serif; font-size: 20px; }
+		p { font: serif 10px; color: #3293a8; }
+		#header { width: 100%; margin: auto; text-align: center; }
 		a { text-decoration: none; color: inherit; }
-
-		.legend {
-		    background-color: #eeeeee;
-		    line-height: 18px;
-		    color: #555;
-		    padding: 6px;
-		    border-radius: 4px;
-		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-		    z-index: 1000;
-		    position: absolute;
-		    pointer-events: none;
-		}
-
-		.info.legend {
-		    background-color: #eeeeee;
-		    line-height: 18px;
-		    color: #555;
-		    padding: 6px;
-		    border-radius: 4px;
-		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-		    z-index: 1000;
-		    position: absolute;
-		    pointer-events: none;
-		}
+		.leaflet-control-layers { background: white; }
 	</style>
-
-<script>
-  $(document).ready(function() {
-
-		var map = L.map('map').setView([0, 0], 10);
-		
-		var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		}).addTo(map);
-		var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
-		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
-
-		var baseMaps = {
-		    "OpenStreetMap": OSMTiles,
-		    "Humanitarian OSM": HOTOSMTiles,
-		    "OpenTopoMap": OpenTopoMap
-		};	
-
-		var layerControl = L.control.layers(baseMaps, null).addTo(map);
-
-		function style1(feature) {
-		    d = feature.properties.PCT_POVERTY;
-		    answer = d > 30 ? '#800026' :
-		             d > 20 ? '#DB0026' :
-		             d > 15 ? '#E31A1C' :
-		             d > 10 ? '#FC4E2A' :
-		             d > 5  ? '#FD8D3C' :
-		             d > 3  ? '#FEB24C' :
-		             d > 1  ? '#FED976' :
-		                      '#FFEDA0';
-		    styleReturn = {
-		        fillColor: answer,
-		        weight: 1,
-		        opacity: 1,
-		        color: 'white',
-		        dashArray: '3',
-		        fillOpacity: 0.7
-		    };
-		    return styleReturn;
-		}
-
-		fetch('acs_denver_2021.geojson')
-		    .then(response => response.json())
-		    .then(data => {
-		      var geojsonLayer = L.geoJSON(data, {
-		        style: style1,
-		        onEachFeature: function (feature, layer) {
-		            layer.bindPopup("Percent Poverty: " + feature.properties.PCT_POVERTY + "%");
-		        }
-		    }).addTo(map);
-
-		    map.panTo(geojsonLayer.getBounds().getCenter());
-		    layerControl.addOverlay(geojsonLayer, "Census 2021");
-		});
-
-		$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_RTDPARKNRIDE_P/FeatureServer/280/query?outFields=*&where=1%3D1&f=geojson', function(data) {
-			newLayer = L.geoJSON(data);
-			layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
-		});
-
-		var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'leaflet-control legend');
-    var colors = ['#FFEDA0','#FED976','#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026'];
-    var labels = ['0 - 1%','1 - 3%','3 - 5%','5 - 10%','10 - 15%','15 - 20%','20 - 30%','30%+'];
-
-    div.innerHTML = '<h4>% Poverty</h4>';
-    for (var i = 0; i < colors.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + colors[i] + '; width:18px; height:18px; display:inline-block; margin-right:8px;"></i> ' +
-            labels[i] + '<br>';
-    }
-    return div;
-};
-
-legend.addTo(map);
-
-  }); // end document ready
-</script>
 </head>
 <body>
 
@@ -153,6 +26,90 @@ legend.addTo(map);
 	<p>Data from <a href="https://opendata-geospatialdenver.hub.arcgis.com/maps/619c7f836b6e4188b0e0f0458aecba26">Denver Open Data Catalog</a></p>
 </div>
 <div id="map"></div>
+
+<script>
+$(document).ready(function() {
+	var map = L.map('map').setView([39.7392, -104.9903], 11);
+
+	var OSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; OpenStreetMap contributors'
+	}).addTo(map);
+
+	var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '© OpenStreetMap contributors, HOT OSM'
+	});
+	var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap'
+	});
+
+	var baseMaps = {
+		"OpenStreetMap": OSMTiles,
+		"Humanitarian OSM": HOTOSMTiles,
+		"OpenTopoMap": OpenTopoMap
+	};
+
+	var layerControl = L.control.layers(baseMaps, null).addTo(map);
+
+	function style1(feature) {
+		var d = feature.properties.PCT_POVERTY;
+		var color = d > 30 ? '#800026' :
+		            d > 20 ? '#BD0026' :
+		            d > 15 ? '#E31A1C' :
+		            d > 10 ? '#FC4E2A' :
+		            d > 5  ? '#FD8D3C' :
+		            d > 3  ? '#FEB24C' :
+		            d > 1  ? '#FED976' :
+		                     '#FFEDA0';
+		return {
+			fillColor: color,
+			weight: 1,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+			fillOpacity: 0.7
+		};
+	}
+
+	fetch('acs_denver_2021.geojson')
+		.then(response => response.json())
+		.then(data => {
+			var geojsonLayer = L.geoJSON(data, {
+				style: style1,
+				onEachFeature: function (feature, layer) {
+					layer.bindPopup("Percent Poverty: " + feature.properties.PCT_POVERTY + "%");
+				}
+			}).addTo(map);
+
+			map.fitBounds(geojsonLayer.getBounds());
+			layerControl.addOverlay(geojsonLayer, "Census 2021");
+		});
+
+	$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_RTDPARKNRIDE_P/FeatureServer/280/query?outFields=*&where=1%3D1&f=geojson', function(data) {
+		var newLayer = L.geoJSON(data);
+		layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
+	});
+
+	var legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (map) {
+		var div = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
+		var grades = ['0 - 1%', '1 - 3%', '3 - 5%', '5 - 10%', '10 - 15%', '15 - 20%', '20 - 30%', '30%+'];
+		var colors = ['#FFEDA0','#FED976','#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026'];
+		div.innerHTML = '<h4>% Poverty</h4>';
+		for (var i = 0; i < colors.length; i++) {
+			div.innerHTML +=
+				'<i style="background:' + colors[i] + '; width:18px; height:18px; display:inline-block; margin-right:8px;"></i> ' +
+				grades[i] + '<br>';
+		}
+		return div;
+	};
+
+	legend.addTo(map);
+});
+</script>
 
 </body>
 </html>
