@@ -3,20 +3,18 @@
   <head>
     <title>My Lab 6 Page</title>
     <style>
-      /* You can put your CSS here */
       body {
         text-align: center;
         margin-top: 50px;
       }
       img {
-        width: 150px;
+        width: 200px;
       }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
       $(document).ready(function() {
-        // This runs when the webpage is fully loaded
         $("#button1").click(function() {
           console.log("Button was clicked!");
           $("#photo").toggle();
@@ -33,7 +31,7 @@
     <h1>Welcome to Lab 6</h1>
 
     <button id="button1">Click to Show/Hide Image</button><br><br>
-  <img id="photo" src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Sample Image">
+    <img id="photo" src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Sample Image"><br><br>
 
     <div id="hidden_text">
       <button id="appear">Click here to see the hidden text!</button>
