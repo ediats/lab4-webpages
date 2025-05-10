@@ -36,7 +36,6 @@
 		
 		a { text-decoration: none; color: inherit; }
 
-		/* ✅ Moved legend CSS inside style */
 		.legend {
 		    background-color: #eeeeee;
 		    line-height: 18px;
@@ -46,6 +45,7 @@
 		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
 		    z-index: 1000;
 		    position: absolute;
+		    pointer-events: none; /* ✅ this prevents map from blocking legend */
 		}
 	</style>
 
