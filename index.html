@@ -1,43 +1,84 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My First Test Page</title>
-    <style>
-  .legend {
-    background: white;
-    padding: 10px;
-    line-height: 18px;
-    color: #333;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    font-size: 12px;
-  }
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Union Station Light Rail Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  .legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.8;
-  }
-</style>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+z0pCfU8YXjJcZJs5yB7j3ZL5sZcG1D/cUjzGUn7k=" crossorigin="" />
 
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <h1 id="map-title">🚈 Union Station Light Rail Stations</h1>
-<button id="zoom-btn" style="margin: 10px;">🔍 Zoom to Union Station</button>
-    <div id="intro-box" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 10px;">
-  <h2>🚆 Union Station Accessibility & Income Overview</h2>
-  <p>This interactive map visualizes light rail stations around Union Station in Denver and overlays census income data to highlight patterns of access and equity.</p>
-</div>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<div id="map" style="width: 100%; height: 600px;"></div>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j6f1LFK4CpZfOTMya4A8EDMUeKjt1zjMjS5Zqx0=" crossorigin=""></script>
 
-    <p>This is my very first web page.</p>
-    <footer style="text-align: center; padding: 10px; font-size: 12px; color: #666;">
-  Created by Eden T. · GIS 3410 Final Project · Spring 2025
-</footer>
+  <!-- Style for legend and layout -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
 
-  </body>
+    #map {
+      width: 100%;
+      height: 600px;
+    }
+
+    .legend {
+      background: white;
+      padding: 10px;
+      line-height: 18px;
+      color: #333;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.8;
+    }
+
+    #intro-box {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="map-title" style="margin: 10px;">🚈 Union Station Light Rail Stations</h1>
+  <button id="zoom-btn" style="margin: 10px;">🔍 Zoom to Union Station</button>
+
+  <div id="intro-box">
+    <h2>🚆 Union Station Accessibility & Income Overview</h2>
+    <p>This interactive map visualizes light rail stations around Union Station in Denver and overlays census income data to highlight patterns of access and equity.</p>
+  </div>
+
+  <div id="map"></div>
+
+  <footer>
+    Created by Eden T. · GIS 3410 Final Project · Spring 2025
+  </footer>
+
+  <!-- Link to your custom JS file -->
+  <script src="script.js"></script>
+
+</body>
 </html>
