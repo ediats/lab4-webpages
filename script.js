@@ -1,17 +1,16 @@
 $(document).ready(function () {
+  // Initialize the map
   var map = L.map('map').setView([39.7527, -104.9992], 13);
 
-  // Base layer
+  // Add base layer
   var defaultBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // Placeholder for the GeoJSON layer
-  var railStations;
-
-  // Load GeoJSON
+  // Load GeoJSON and build overlay layer
   $.getJSON('light_rail_stations.geojson', function (data) {
-    railStations = L.geoJSON(data, {
+    // Create rail stations layer
+    var railStations = L.geoJSON(data, {
       onEachFeature: function (feature, layer) {
         if (feature.properties && feature.properties.STATION) {
           layer.bindPopup('<strong>' + feature.properties.STATION + '</strong>');
@@ -19,22 +18,23 @@ $(document).ready(function () {
       }
     });
 
-    // Add to map
+    // Add layer to map
     railStations.addTo(map);
 
-    // 🟡 Here's the layer control (this part must be AFTER railStations is defined)
+    // ✅ Define base and overlay maps (INSIDE the callback)
     var baseMaps = {
       "OpenStreetMap": defaultBase
     };
+
     var overlayMaps = {
       "Light Rail Stations": railStations
     };
 
-    // This makes the toggle layer control appear
+    // ✅ Add layer control to map
     L.control.layers(baseMaps, overlayMaps).addTo(map);
   });
 
-  // jQuery fade-out for the title
+  // jQuery effect: fade out title when clicked
   $('#map-title').click(function () {
     $(this).fadeOut('slow');
   });
