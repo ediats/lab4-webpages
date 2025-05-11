@@ -37,6 +37,14 @@ $(document).ready(function () {
         fillOpacity: 0.6
       };
     }
+  // Add a custom marker for Union Station
+  var unionStationCoords = [39.7527, -105.0000];
+
+  var unionStationMarker = L.marker(unionStationCoords, {
+    title: "Union Station"
+  }).addTo(map);
+
+  unionStationMarker.bindPopup("<b>Union Station</b><br>Denver's major transit hub.");
 
     var acsLayer = L.geoJSON(acsData, {
       style: style,
