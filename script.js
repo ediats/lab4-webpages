@@ -93,4 +93,9 @@ unionStationMarker.bindPopup("<b>Union Station</b><br>Denver's major transit hub
   $('#map-title').click(function () {
     $(this).fadeOut('slow');
   });
+  // Zoom button functionality
+$('#zoom-btn').click(function () {
+  map.setView([39.7527, -105.0000], 15); // zoom to Union Station
+  unionStationMarker.openPopup();        // open popup on arrival
+});
 });
