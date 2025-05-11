@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Union Station Light Rail Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 80%;
+      width: 95%;
+      margin: auto;
+    }
+    #map-title {
+      text-align: center;
+      padding: 12px;
+      font-size: 22px;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map-title">🚈 Union Station Light Rail Stations</div>
+  <div id="map"></div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Your Script -->
+  <script src="script.js"></script>
+</body>
+</html>
