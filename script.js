@@ -38,13 +38,22 @@ $(document).ready(function () {
       };
     }
   // Add a custom marker for Union Station
-  var unionStationCoords = [39.7527, -105.0000];
+  // Highlight Union Station with a custom icon
+var unionStationCoords = [39.7527, -105.0000];
 
-  var unionStationMarker = L.marker(unionStationCoords, {
-    title: "Union Station"
-  }).addTo(map);
+var customIcon = L.icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // orange train pin
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30]
+});
 
-  unionStationMarker.bindPopup("<b>Union Station</b><br>Denver's major transit hub.");
+var unionStationMarker = L.marker(unionStationCoords, {
+  icon: customIcon,
+  title: "Union Station"
+}).addTo(map);
+
+unionStationMarker.bindPopup("<b>Union Station</b><br>Denver's major transit hub.");
 
     var acsLayer = L.geoJSON(acsData, {
       style: style,
