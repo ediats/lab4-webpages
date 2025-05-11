@@ -47,8 +47,7 @@
 	$(document).ready(function() {
 
 		// let's create our basemap! -- ##1 
-		var map = L.map('map').setView([0, 0], 10);
-		
+		var map = L.map('map').setView([39.7392, -104.9903], 11); // Denver center
 		
 		// let's add three sets of background tiles - one from OSM,  one from HOT OSM, and one from openTopoMap
 		var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
